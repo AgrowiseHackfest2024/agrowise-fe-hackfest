@@ -1,9 +1,17 @@
+"use client";
+
+import { useScrollTop } from "@/hooks/use-scroll-top";
 import Image from "next/image";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
 const Navbar = () => {
+  const scrolled = useScrollTop();
   return (
-    <div className="fixed top-0 inset-x-0 py-3 px-[7%]">
+    <div
+      className={`fixed top-0 z-50 inset-x-0 py-3 px-[7%] ${
+        scrolled && "bg-white shadow-md"
+      } transition`}
+    >
       <div className="w-full flex justify-between items-center">
         <Image src="/logo-name.svg" width={150} height={50} alt="logo" />
         <ul className="flex gap-2 font-dm font-semibold text-lg">

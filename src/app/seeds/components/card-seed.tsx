@@ -4,41 +4,61 @@ import { GiJellyBeans } from "react-icons/gi";
 import { FaStar } from "react-icons/fa6";
 import { PiPlantFill } from "react-icons/pi";
 
-const CardSeed = () => {
+export interface CardSeedProps {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+  rating: number;
+  sold: number;
+  image: string;
+  unit: string;
+}
+
+const CardSeed = ({
+  id,
+  name,
+  price,
+  stock,
+  rating,
+  sold,
+  image,
+  unit,
+}: CardSeedProps) => {
   return (
     <div className="w-full max-w-[22rem] bg-white aspect-[381/455] rounded-md overflow-hidden shadow-md hover:scale-[105%] transition cursor-pointer">
       <div className="w-full h-1/2 relative">
         <Image
-          src="/benih/bawang.jpg"
+          src={image}
           fill
           className="w-full h-full object-cover"
-          alt="bawang"
+          alt={name}
         />
       </div>
       <div className="px-[5%] py-6 flex flex-col justify-between h-1/2">
         <div>
-          <h1 className="text-2xl font-bold">Benih Jagung</h1>
-          <p className="font-semibold text-slate-500">500 gram</p>
+          <h1 className="text-2xl font-bold">{name}</h1>
+          <p className="font-semibold text-slate-500">{unit}</p>
         </div>
         <div className="flex justify-between items-end">
           <div className="flex flex-col items-center">
             <IoMdPricetags className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">Rp11,000</p>
+            <p className="text-sm mt-1 font-semibold">Rp{price}</p>
             <p className="text-sm font-semibold text-slate-600">price</p>
           </div>
           <div className="flex flex-col items-center">
             <GiJellyBeans className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">55 pcs</p>
+            <p className="text-sm mt-1 font-semibold">{stock} pcs</p>
             <p className="text-sm font-semibold text-slate-600">stock</p>
           </div>
           <div className="flex flex-col items-center">
             <FaStar className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">4.5</p>
+            <p className="text-sm mt-1 font-semibold">{rating}</p>
             <p className="text-sm font-semibold text-slate-600">rating</p>
           </div>
           <div className="flex flex-col items-center">
             <PiPlantFill className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">30 pcs</p>
+            <p className="text-sm mt-1 font-semibold">{sold} pcs</p>
             <p className="text-sm font-semibold text-slate-600">sold</p>
           </div>
         </div>

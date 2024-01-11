@@ -1,0 +1,64 @@
+{
+  "seeds": [
+    {
+      "id": 1,
+      "name": "Benih Bawang Merah",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/bawang.jpg",
+      "unit": "500 gram"
+    },
+    {
+      "id": 2,
+      "name": "Benih Cabai",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/cabai.jpg",
+      "unit": "500 gram"
+    },
+    {
+      "id": 3,
+      "name": "Benih Jagung",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/jagung.jpg",
+      "unit": "500 gram"
+    },
+    {
+      "id": 4,
+      "name": "Benih Kentang",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/kentang.jpg",
+      "unit": "500 gram"
+    },
+    {
+      "id": 5,
+      "name": "Benih Padi",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/padi.jpg",
+      "unit": "500 gram"
+    },
+    {
+      "id": 6,
+      "name": "Benih Tomat",
+      "price": 10000,
+      "stock": 100,
+      "sold": 0,
+      "rating": 4.5,
+      "image": "/benih/tomat.jpg",
+      "unit": "500 gram"
+    }
+  ]
+}
