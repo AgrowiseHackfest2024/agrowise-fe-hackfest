@@ -1,0 +1,31 @@
+{
+  "farmers": [
+    {
+      "id": 1,
+      "name": "Budi Santoso",
+      "location": "Desa Maju Jaya, Kecamatan Sejahtera, Kabupaten Makmur",
+      "description": "Petani berpengalaman dengan keahlian dalam menanam sayuran dan cabai. Memiliki lahan seluas 2 hektar yang dibagi untuk tanaman berbeda. Bersedia menerima benih dan bertanggung jawab atas penanaman dengan baik.",
+      "area": "2 hektar",
+      "seeds": [1, 3, 5],
+      "status": "available now"
+    },
+    {
+      "id": 2,
+      "nama": "Siti Rahayu",
+      "location": "Kelurahan Harapan Indah, Kecamatan Bahagia, Kota Ceria",
+      "description": "Petani perintis dengan fokus pada tanaman jagung dan padi. Memiliki lahan pertanian sekitar 1,5 hektar yang digunakan untuk menanam jagung dan padi secara bergantian. Memiliki semangat tinggi untuk mengembangkan pertanian yang berkelanjutan.",
+      "area": "5 hektar",
+      "seeds": [2, 4],
+      "status": "available now"
+    },
+    {
+      "id": 3,
+      "nama": "Sukirman",
+      "location": "Kampung Damai Sejahtera, Kecamatan Tani Subur, Kabupaten Subang",
+      "description": "Petani pemula yang antusias dan berkeinginan untuk menanam kentang dan tomat. Lahan pertanian kurang lebih 1 hektar yang dibagi untuk kentang dan tomat. Mengharapkan dukungan benih berkualitas untuk memulai usahanya.",
+      "area": "1 hektar",
+      "seeds": [1, 2, 3, 4, 5],
+      "status": "available in 2 months"
+    }
+  ]
+}

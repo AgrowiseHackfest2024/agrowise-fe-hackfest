@@ -8,7 +8,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/bawang.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Dapatkan benih bawang merah berkualitas tinggi untuk program penanaman Anda. Harga terjangkau memungkinkan Anda memberikan benih ini kepada petani, sehingga mereka dapat menanam bawang merah dengan kualitas terbaik untuk panen yang melimpah."
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/cabai.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Benih cabai unggul siap memberikan hasil panen pedas dan lezat bagi petani Anda. Dengan rating tinggi, benih ini cocok untuk dititipkan kepada petani yang menginginkan tanaman cabai berkualitas tinggi dalam usaha pertanian mereka."
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/jagung.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Berikan kepada petani benih jagung terbaik untuk pertumbuhan yang subur. Dengan kandungan gizi yang tinggi, benih ini cocok untuk program penanaman dengan harapan hasil panen jagung yang berkualitas tinggi."
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/kentang.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Benih kentang unggul dengan harga terjangkau, ideal untuk diberikan kepada petani. Dengan demikian, petani dapat menanam kentang dengan keyakinan akan hasil panen yang lezat dan bermutu tinggi."
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/padi.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Dukung petani dengan memberikan benih padi berkualitas tinggi. Dengan rating tinggi, benih ini menjadi pilihan terbaik untuk program penanaman padi yang produktif dan menghasilkan hasil panen yang melimpah."
     },
     {
       "id": 6,
@@ -58,7 +63,8 @@
       "sold": 0,
       "rating": 4.5,
       "image": "/benih/tomat.jpg",
-      "unit": "500 gram"
+      "unit": "500 gram",
+      "description": "Sediakan benih tomat terbaik untuk para petani. Dengan kualitas terbaik, benih ini akan mendukung petani dalam menanam tanaman tomat yang sehat, produktif, dan menghasilkan tomat segar yang berkualitas."
     }
   ]
 }
