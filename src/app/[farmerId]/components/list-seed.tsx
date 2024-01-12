@@ -21,7 +21,7 @@ const ListSeed = ({ seedList }: { seedList: CardSeedProps[] }) => {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
-      <div className="flex flex-wrap gap-5 w-full mx-auto justify-center">
+      <div className="flex flex-wrap gap-5 w-full mx-auto justify-between">
         {data.map((seed) => (
           <CardSeed key={seed.id} {...seed} />
         ))}

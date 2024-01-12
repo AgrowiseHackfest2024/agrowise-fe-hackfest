@@ -35,30 +35,30 @@ const CardSeed = ({
           alt={name}
         />
       </div>
-      <div className="px-[5%] py-6 flex flex-col justify-between h-1/2">
+      <div className="px-[7%] py-6 flex flex-col justify-between h-1/2">
         <div>
-          <h1 className="text-2xl font-bold">{name}</h1>
+          <h1 className="text-2xl font-semibold font-poppins">{name}</h1>
           <p className="font-semibold text-slate-500">{unit}</p>
         </div>
         <div className="flex justify-between items-end">
           <div className="flex flex-col items-center">
             <IoMdPricetags className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">Rp{price}</p>
+            <p className="text-sm mt-1 font-semibold font-dm">Rp{price}</p>
             <p className="text-sm font-semibold text-slate-600">price</p>
           </div>
           <div className="flex flex-col items-center">
             <GiJellyBeans className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">{stock} pcs</p>
+            <p className="text-sm mt-1 font-semibold font-dm">{stock} pcs</p>
             <p className="text-sm font-semibold text-slate-600">stock</p>
           </div>
           <div className="flex flex-col items-center">
             <FaStar className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">{rating}</p>
+            <p className="text-sm mt-1 font-semibold font-dm">{rating}</p>
             <p className="text-sm font-semibold text-slate-600">rating</p>
           </div>
           <div className="flex flex-col items-center">
             <PiPlantFill className="text-black" size={22} />
-            <p className="text-sm mt-1 font-semibold">{sold} pcs</p>
+            <p className="text-sm mt-1 font-semibold font-dm">{sold} pcs</p>
             <p className="text-sm font-semibold text-slate-600">sold</p>
           </div>
         </div>
