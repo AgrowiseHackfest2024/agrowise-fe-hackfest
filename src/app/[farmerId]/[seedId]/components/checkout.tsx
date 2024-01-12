@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiPlus, HiMinus, HiOutlinePencil } from "react-icons/hi";
+
 interface CheckoutProps {
   name: string;
   stock: number;
@@ -10,7 +11,35 @@ interface CheckoutProps {
   image: string;
 }
 
+declare global {
+  interface Window {
+    snap: {
+      pay: (token: string) => void;
+    };
+  }
+}
+
+window.snap = window.snap || {};
+
 const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
+  useEffect(() => {
+    const snap = "https://app.sandbox.midtrans.com/snap/snap.js"
+    const clientKey = process.env.NEXT_PUBLIC_CLIENT as string
+
+    console.log(clientKey)
+
+    const script = document.createElement("script")
+    script.src = snap
+    script.setAttribute("data-client-key", clientKey)
+    script.async = true
+
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  })
+  
   const [count, setCount] = useState(1);
   const [note, setNote] = useState("");
   const [hasNote, setHasNote] = useState(false);
@@ -25,6 +54,24 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
       setCount(count - 1);
     }
   };
+
+  const checkout = async () => {
+    const data = {
+      productName: name,
+      price: price,
+      quantity: count
+    }
+
+    const response = await fetch("/api/tokenizer", {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+
+    const result = await response.json();
+
+    window.snap.pay(result.token)
+  }
+
   return (
     <div className="flex-1 px-5 py-5 bg-white shadow-lg rounded-lg border-gray-300 border-[1px] sticky top-20">
       <h1 className="font-semibold font-dm text-xl">Atur jumlah dan catatan</h1>
@@ -88,9 +135,9 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
           Rp{(price * count).toLocaleString()}
         </p>
       </div>
-      <div className="w-full py-2 text-center rounded-full bg-green-700 text-white font-semibold font-poppins text-lg mt-5">
+      <button className="w-full py-2 text-center rounded-full bg-green-700 text-white font-semibold font-poppins text-lg mt-5" onClick={checkout}>
         Checkout
-      </div>
+      </button>
     </div>
   );
 };
