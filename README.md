@@ -11,14 +11,17 @@ Together, we are eager to make impactful changes in the world.
 
 ---
 
-#AGROWISE
+# AGROWISE
 
-##About
-Agrowise adalah platform pertanian inovatif yang menghubungkan konsumen dengan petani yang menerapkan praktik pertanian berkelanjutan melalui konsep Community Supported Agriculture (CSA). Konsumen dapat memilih petani yang ingin mereka dukung berdasarkan profil dan ulasan. Aplikasi ini memudahkan pembelian bibit dan mengelola pengiriman langsung ke petani. Konsumen dapat mengikuti perkembangan pertanian mereka melalui pembaruan dan foto petani, membangun transparansi. Saat pemanenan, konsumen dan petani merayakan hasil bersama, memperkuat keterlibatan dalam pertanian berkelanjutan.
+## About
+Agrowise is an innovative agricultural platform that connects consumers with farmers implementing sustainable farming practices through the Community Supported Agriculture (CSA) concept. Consumers can choose farmers they want to support based on profiles and reviews. The application facilitates seed purchases and manages direct deliveries to farmers. Consumers can follow the progress of their farms through updates and photos from farmers, promoting transparency. During harvest, consumers and farmers celebrate the results together, strengthening engagement in sustainable agriculture.
 
-##Features
-1. Pilih Benih: Agrowise memudahkan konsumen untuk memilih bibit dengan mudah dan efisien.
-2. Pembayaran Online: Agar transaksi lebih mudah, kami telah menyertakan sistem pembayaran online. Konsumen dapat membayar langsung melalui platform ini.
+## Features
+1. Choose Seeds: Agrowise makes it easy and efficient for consumers to choose seeds.
+2. Online Payments: To simplify transactions, we have included an online payment system. Consumers can pay directly through this platform.
+
+## How to use
+Access the Application: The Agrowise application has been successfully deployed and can be accessed at https://agrowise-hackfest-2024.vercel.app/
 
 ## Running locally in development mode
 
@@ -39,3 +42,32 @@ If you wanted to run this site in production, you should install modules then bu
     npm start
 
 You should run `npm run build` again any time you make changes to the site.
+
+## Tech Stack
+
+### Frontend
+- **Framework**: [Next.js](https://nextjs.org/) 
+  - Next.js is utilized for the frontend to provide a powerful and flexible React framework with server-side rendering capabilities.
+
+### Backend
+- **Language**: [Golang](https://golang.org/)
+  - Golang is the chosen backend language for its efficiency, concurrency support, and excellent performance.
+- **Web Framework**: [Gin](https://gin-gonic.com/)
+  - Gin is used as the web framework for Golang, providing a lightweight and fast HTTP framework.
+- **ORM (Object-Relational Mapping)**: [Prisma](https://www.prisma.io/)
+  - Prisma is employed as the ORM to simplify database interactions and provide type-safe database access.
+
+### Database
+- **Database**: [CockroachDB](https://www.cockroachlabs.com/)
+  - CockroachDB is employed as the database solution due to its distributed architecture, scalability, and strong consistency features.
+
+### Payment Gateway
+- **Payment Gateway**: [Midtrans](https://midtrans.com/)
+  - Midtrans is integrated as the payment gateway to facilitate online transactions securely and efficiently.
+
+### Additional Tools and Libraries
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+  - Tailwind CSS is chosen for styling to provide a utility-first CSS framework that is highly customizable.
+
+This tech stack combines the efficiency of Golang for the backend, the flexibility of Next.js for the frontend, the distributed architecture of CockroachDB for data storage, and the secure payment processing capabilities of Midtrans for a robust and reliable agricultural platform.
+
