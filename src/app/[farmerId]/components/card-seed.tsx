@@ -3,8 +3,10 @@ import { IoMdPricetags } from "react-icons/io";
 import { GiJellyBeans } from "react-icons/gi";
 import { FaStar } from "react-icons/fa6";
 import { PiPlantFill } from "react-icons/pi";
+import Link from "next/link";
 
 export interface CardSeedProps {
+  farmerId?: number;
   id: number;
   name: string;
   price: number;
@@ -16,6 +18,7 @@ export interface CardSeedProps {
 }
 
 const CardSeed = ({
+  farmerId,
   id,
   name,
   price,
@@ -26,7 +29,7 @@ const CardSeed = ({
   unit,
 }: CardSeedProps) => {
   return (
-    <div className="w-full max-w-[22rem] bg-white aspect-[381/455] rounded-md overflow-hidden shadow-md hover:scale-[105%] transition cursor-pointer">
+    <Link href={`${farmerId || "seeds"}/${id}`} replace={false} className="w-full max-w-[22rem] bg-white aspect-[381/455] rounded-md overflow-hidden shadow-md hover:scale-[105%] transition cursor-pointer">
       <div className="w-full h-1/2 relative">
         <Image
           src={image}
@@ -63,7 +66,7 @@ const CardSeed = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
