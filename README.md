@@ -54,8 +54,6 @@ You should run `npm run build` again any time you make changes to the site.
   - Golang is the chosen backend language for its efficiency, concurrency support, and excellent performance.
 - **Web Framework**: [Gin](https://gin-gonic.com/)
   - Gin is used as the web framework for Golang, providing a lightweight and fast HTTP framework.
-- **ORM (Object-Relational Mapping)**: [Prisma](https://www.prisma.io/)
-  - Prisma is employed as the ORM to simplify database interactions and provide type-safe database access.
 
 ### Database
 - **Database**: [CockroachDB](https://www.cockroachlabs.com/)
