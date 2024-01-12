@@ -21,8 +21,8 @@ Agrowise is an innovative agricultural platform that connects consumers with far
 2. Online Payments: To simplify transactions, we have included an online payment system. Consumers can pay directly through this platform.
 
 ## How to use
-Access the Application: The Agrowise application has been successfully deployed and can be accessed at https://agrowise-hackfest-2024.vercel.app/
-Simulate Payments: For payment simulation, you can use the [Midtrans Payment Simulator](https://simulator.sandbox.midtrans.com/) .
+1. Access the Application: The Agrowise application has been successfully deployed and can be accessed at https://agrowise-hackfest-2024.vercel.app/
+2. Simulate Payments: For payment simulation, you can use the [Midtrans Payment Simulator](https://simulator.sandbox.midtrans.com/) .
 
 ## Running locally in development mode
 
