@@ -37,7 +37,6 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${inter.variable} ${poppins.variable} ${dmSans.variable}`}
       >
-        <Navbar />
         <div>{children}</div>
       </body>
     </html>
