@@ -29,7 +29,11 @@ const CardSeed = ({
   unit,
 }: CardSeedProps) => {
   return (
-    <Link href={`${farmerId || "seeds"}/${id}`} replace={false} className="w-full max-w-[22rem] bg-white aspect-[381/455] rounded-md overflow-hidden shadow-md hover:scale-[105%] transition cursor-pointer">
+    <Link
+      href={`${farmerId || "seeds"}/${id}`}
+      replace={false}
+      className="w-full max-w-[22rem] bg-white aspect-[381/455] rounded-md overflow-hidden shadow-md hover:scale-[105%] transition cursor-pointer"
+    >
       <div className="w-full h-1/2 relative">
         <Image
           src={image}
@@ -40,7 +44,7 @@ const CardSeed = ({
       </div>
       <div className="px-[7%] py-6 flex flex-col justify-between h-1/2">
         <div>
-          <h1 className="text-2xl font-semibold font-poppins">{name}</h1>
+          <h1 className="text-2xl font-semibold font-dm">{name}</h1>
           <p className="font-semibold text-slate-500">{unit}</p>
         </div>
         <div className="flex justify-between items-end">

@@ -23,23 +23,23 @@ window.snap = window.snap || {};
 
 const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
   useEffect(() => {
-    const snap = "https://app.sandbox.midtrans.com/snap/snap.js"
-    const clientKey = process.env.NEXT_PUBLIC_CLIENT as string
+    const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
 
-    console.log(clientKey)
+    console.log(clientKey);
 
-    const script = document.createElement("script")
-    script.src = snap
-    script.setAttribute("data-client-key", clientKey)
-    script.async = true
+    const script = document.createElement("script");
+    script.src = snap;
+    script.setAttribute("data-client-key", clientKey);
+    script.async = true;
 
-    document.body.appendChild(script)
+    document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script)
-    }
-  })
-  
+      document.body.removeChild(script);
+    };
+  });
+
   const [count, setCount] = useState(1);
   const [note, setNote] = useState("");
   const [hasNote, setHasNote] = useState(false);
@@ -59,18 +59,18 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
     const data = {
       productName: name,
       price: price,
-      quantity: count
-    }
+      quantity: count,
+    };
 
     const response = await fetch("/api/tokenizer", {
       method: "POST",
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
 
     const result = await response.json();
 
-    window.snap.pay(result.token)
-  }
+    window.snap.pay(result.token);
+  };
 
   return (
     <div className="flex-1 px-5 py-5 bg-white shadow-lg rounded-lg border-gray-300 border-[1px] sticky top-20">
@@ -84,7 +84,7 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
             alt={name}
           />
         </div>
-        <p className="font-poppins">{name}</p>
+        <p className="font-dm">{name}</p>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
@@ -116,7 +116,12 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
               value={note}
               placeholder="Contoh: Biji yang bagus"
             />
-            <p className="text-green-700 font-semibold cursor-pointer mt-2" onClick={() => setHasNote(false)}>Batalkan Catatan</p>
+            <p
+              className="text-green-700 font-semibold cursor-pointer mt-2"
+              onClick={() => setHasNote(false)}
+            >
+              Batalkan Catatan
+            </p>
           </div>
         ) : (
           <div
@@ -135,7 +140,10 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
           Rp{(price * count).toLocaleString()}
         </p>
       </div>
-      <button className="w-full py-2 text-center rounded-full bg-green-700 text-white font-semibold font-poppins text-lg mt-5" onClick={checkout}>
+      <button
+        className="w-full py-2 text-center rounded-full bg-green-700 text-white font-semibold font-dm text-lg mt-5"
+        onClick={checkout}
+      >
         Checkout
       </button>
     </div>

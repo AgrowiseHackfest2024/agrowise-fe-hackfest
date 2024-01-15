@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
-import { Open_Sans, Poppins, DM_Sans } from "next/font/google";
+import { Open_Sans, Poppins, DM_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-open-sans",
-});
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
-  variable: "--font-poppins",
+  variable: "--font-dm",
 });
 const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-dm-sans",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/logo.svg" sizes="any" />
       <body
-        className={`${openSans.className} ${openSans.variable} ${poppins.variable} ${dmSans.variable}`}
+        className={`${inter.className} ${inter.variable} ${poppins.variable} ${dmSans.variable}`}
       >
         <Navbar />
         <div>{children}</div>

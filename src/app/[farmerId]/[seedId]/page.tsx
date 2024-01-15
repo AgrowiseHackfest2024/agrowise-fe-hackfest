@@ -38,7 +38,7 @@ const Page = ({
   return (
     <div className="pb-20 min-h-screen">
       <div className="w-full h-40 pt-16 flex items-center relative justify-start px-[7%] bg-[url('/benih/bgdetail.svg')] bg-no-repeat bg-cover bg-center">
-        <div className="flex z-10 text-white font-poppins items-center gap-2">
+        <div className="flex z-10 text-white font-dm items-center gap-2">
           <AiOutlineHome size={22} />
           <HiChevronRight size={22} />
           <Link href="/" className="hover:underline cursor-pointer">
@@ -70,7 +70,7 @@ const Page = ({
               </div>
             </div>
             <div className="flex-1">
-              <h1 className="font-poppins text-5xl font-bold">{benih.name}</h1>
+              <h1 className="font-dm text-5xl font-bold">{benih.name}</h1>
               <div className="flex gap-2 my-2">
                 <div className="flex gap-1">
                   <Rating rating={benih.rating} />
