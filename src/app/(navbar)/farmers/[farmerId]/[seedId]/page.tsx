@@ -1,5 +1,5 @@
 import Image from "next/image";
-import data from "../../../../../public/data/benih.json";
+import data from "../../../../../../public/data/benih.json";
 import { AiOutlineHome } from "react-icons/ai";
 import { HiChevronRight } from "react-icons/hi";
 import { FaStar, FaStarHalf } from "react-icons/fa6";

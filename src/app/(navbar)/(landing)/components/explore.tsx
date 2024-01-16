@@ -1,4 +1,4 @@
-import FarmerCard from "./farmer-card";
+import FarmerCard from "../../farmers/components/farmer-card";
 
 const Explore = () => {
   return (
@@ -9,6 +9,7 @@ const Explore = () => {
         </h1>
         <div className="flex justify-center gap-10 w-full mt-14">
           <FarmerCard
+            id="1"
             imageUrl="/landing/farmer-dummy.svg"
             name="Syawaluddin"
             address="Jalan Pertanian Baru No. 123, Desa Sejahtera, Kota Dieng"
@@ -18,6 +19,7 @@ const Explore = () => {
             rating={4.5}
           />
           <FarmerCard
+            id="2"
             imageUrl="/landing/farmer-dummy.svg"
             name="Syawaluddin"
             address="Jalan Pertanian Baru No. 123, Desa Sejahtera, Kota Dieng"
@@ -27,6 +29,7 @@ const Explore = () => {
             rating={4.5}
           />
           <FarmerCard
+            id="3"
             imageUrl="/landing/farmer-dummy.svg"
             name="Syawaluddin"
             address="Jalan Pertanian Baru No. 123, Desa Sejahtera, Kota Dieng"
