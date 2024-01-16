@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="flex gap-2 items-center">
           <Image src="/logo.svg" width={35} height={35} alt="logo" />
           <p
-            className={`text-2xl font-semibold font-poppins ${
+            className={`text-2xl font-semibold font-dm ${
               scrolled ? "text-black" : "text-white"
             } transition`}
           >
