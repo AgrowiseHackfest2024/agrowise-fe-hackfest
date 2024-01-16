@@ -26,12 +26,10 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
     const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
 
-    console.log(clientKey);
-
-    const script = document.createElement("script");
-    script.src = snap;
-    script.setAttribute("data-client-key", clientKey);
-    script.async = true;
+    const script = document.createElement("script")
+    script.src = snap
+    script.setAttribute("data-client-key", clientKey)
+    script.async = true
 
     document.body.appendChild(script);
 
@@ -57,20 +55,25 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
 
   const checkout = async () => {
     const data = {
-      productName: name,
+      product_id: "1d977848-7457-4c7f-86c8-8cf558d5cf12",
+      name: name,
       price: price,
       quantity: count,
     };
 
-    const response = await fetch("/api/tokenizer", {
+    const response = await fetch(process.env.BACKEND_URL + "/orders", {
       method: "POST",
-      body: JSON.stringify(data),
-    });
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RpbmdAdGVzdC5jb20iLCJleHAiOjE3MDU2OTI3OTcsImlkIjoiYzc0YzE0YmYtZDZhZS00NTVkLTg0MmMtNmMwMmNkNjM4MzQ5In0.FAiD7sPRwZkVCHEJaRfymzkHeGX5QaPRCkqectldObE"
+      },
+      body: JSON.stringify(data)
+    })
 
     const result = await response.json();
 
-    window.snap.pay(result.token);
-  };
+    window.snap.pay(result.data.token)
+  }
 
   return (
     <div className="flex-1 px-5 py-5 bg-white shadow-lg rounded-lg border-gray-300 border-[1px] sticky top-20">
