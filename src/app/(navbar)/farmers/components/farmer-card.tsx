@@ -3,6 +3,7 @@ import { RatingFarmer } from "@/types/ratingFarmer";
 import Image from "next/image";
 import Link from "next/link";
 import { FaMountainSun, FaArrowsLeftRight, FaStar } from "react-icons/fa6";
+import { calculateAverageRating } from "@/utils/ratingUtils";
 
 const FarmerCard = ({
   id,
@@ -16,15 +17,8 @@ const FarmerCard = ({
   UpdatedAt,
   DeletedAt,
   RatingFarmer,
-  Products
+  Products,
 }: Farmer) => {
-  const calculateAverageRating = (ratings: RatingFarmer[]) => {
-    if (ratings.length === 0) return 0;
-
-    const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
-    return totalRating / ratings.length;
-  };
-
   const averageRating = calculateAverageRating(RatingFarmer);
 
   return (
@@ -58,17 +52,19 @@ const FarmerCard = ({
         <div className="grid grid-cols-3 divide-x-2 divide-zinc-200 mt-auto">
           <div className="flex flex-col items-center">
             <FaArrowsLeftRight size={24} />
-            <p className="font-semibold font-dm text-[1.1rem] mt-1">{luas_lahan} ha</p>
+            <p className="font-semibold font-dm mt-1">{luas_lahan} ha</p>
             <p className="text-gray-500 font-medium leading-none">area</p>
           </div>
           <div className="flex flex-col items-center">
             <FaMountainSun size={24} />
-            <p className="font-semibold font-dm text-[1.1rem] mt-1">{jenis_sawah}</p>
+            <p className="font-semibold font-dm mt-1 text-center">
+              {jenis_sawah}
+            </p>
             <p className="text-gray-500 font-medium leading-none">surface</p>
           </div>
           <div className="flex flex-col items-center">
             <FaStar size={24} />
-            <p className="font-semibold font-dm text-[1.1rem] mt-1">{averageRating}</p>
+            <p className="font-semibold font-dm mt-1">{averageRating}</p>
             <p className="text-gray-500 font-medium leading-none">rating</p>
           </div>
         </div>

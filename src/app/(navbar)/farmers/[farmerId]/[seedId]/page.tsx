@@ -23,9 +23,9 @@ const Page = async ({
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-  })
+  });
 
   const result = await farmers.json();
 
@@ -50,19 +50,19 @@ const Page = async ({
     }
     return <div className="flex gap-[0.1rem]">{stars}</div>;
   };
-  
+
   return (
     <div className="pb-20 min-h-screen">
       <div className="w-full h-40 pt-16 flex items-center relative justify-start px-[7%] bg-[url('/benih/bgdetail.svg')] bg-no-repeat bg-cover bg-center">
         <div className="flex z-10 text-white font-dm items-center gap-2">
           <AiOutlineHome size={22} />
           <HiChevronRight size={22} />
-          <Link href="/" className="hover:underline cursor-pointer">
+          <Link href="/farmers" className="hover:underline cursor-pointer">
             Farmers
           </Link>
           <HiChevronRight size={22} />
           <Link
-            href={`/${farmerId}`}
+            href={`/farmers/${farmerId}`}
             className="hover:underline cursor-pointer"
           >
             Seeds
@@ -103,9 +103,7 @@ const Page = async ({
                 {result.data.harga.toLocaleString()}
               </h2>
               <hr className="my-3 border-1" />
-              <p className="text-base text-gray-500">
-                {result.data.deskripsi}
-              </p>
+              <p className="text-base text-gray-500">{result.data.deskripsi}</p>
               <hr className="my-3 border-1" />
               <p className="font-semibold">
                 Category :{" "}
@@ -122,7 +120,13 @@ const Page = async ({
               <hr className="my-3" />
             </div>
           </div>
-          <Checkout id={result.data.id} nama={result.data.nama} stok={result.data.stok} harga={result.data.harga} foto={result.data.foto} />
+          <Checkout
+            id={result.data.id}
+            nama={result.data.nama}
+            stok={result.data.stok}
+            harga={result.data.harga}
+            foto={result.data.foto}
+          />
         </div>
       </div>
     </div>

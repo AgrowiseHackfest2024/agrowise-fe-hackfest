@@ -28,10 +28,10 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
     const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
 
-    const script = document.createElement("script")
-    script.src = snap
-    script.setAttribute("data-client-key", clientKey)
-    script.async = true
+    const script = document.createElement("script");
+    script.src = snap;
+    script.setAttribute("data-client-key", clientKey);
+    script.async = true;
 
     document.body.appendChild(script);
 
@@ -70,15 +70,15 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
 
     const result = await response.json();
 
-    window.snap.pay(result.data.token)
-  }
+    window.snap.pay(result.data.token);
+  };
 
   return (
     <div className="flex-1 px-5 py-5 bg-white shadow-lg rounded-lg border-gray-300 border-[1px] sticky top-20">
@@ -143,9 +143,22 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
       </div>
       <hr className="my-3" />
       <div className="flex justify-between items-center">
+        <p className="text-gray-500">Subtotal</p>
+        <p className="text-lg font-semibold  text-gray-500">
+          Rp{(harga * count).toLocaleString()}
+        </p>
+      </div>
+      <div className="flex justify-between items-center">
+        <p className="text-gray-500">Operational Fee</p>
+        <p className="text-lg font-semibold text-gray-500">
+          Rp{(harga * count * 0.3).toLocaleString()}
+        </p>
+      </div>
+      <hr className="border-[1px] my-3" />
+      <div className="flex justify-between items-center">
         <p className="text-gray-500">Total</p>
         <p className="font-bold font-dm text-xl">
-          Rp{(harga * count).toLocaleString()}
+          Rp{(harga * count * 1.3).toLocaleString()}
         </p>
       </div>
       <button
