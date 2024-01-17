@@ -1,3 +1,4 @@
+import { Farmer } from "./farmer";
 import { OrderItem } from "./orderItem";
 import { User } from "./user";
 
@@ -7,6 +8,8 @@ export interface Order {
   id: string;
   user_id: string;
   user: User;
+  farmer_id: string;
+  farmer: Farmer;
   total: number;
   status: StatusPembayaran;
   snap_token?: string;
