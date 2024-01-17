@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiPlus, HiMinus, HiOutlinePencil } from "react-icons/hi";
+import Cookies from "universal-cookie";
 
 interface CheckoutProps {
-  name: string;
-  stock: number;
-  price: number;
-  image: string;
+  id: string;
+  nama: string;
+  stok: number;
+  harga: number;
+  foto: string[];
 }
 
 declare global {
@@ -21,7 +23,7 @@ declare global {
 
 window.snap = window.snap || {};
 
-const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
+const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
   useEffect(() => {
     const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
@@ -42,7 +44,7 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
   const [note, setNote] = useState("");
   const [hasNote, setHasNote] = useState(false);
   const handlePlus = () => {
-    if (count < stock) {
+    if (count < stok) {
       setCount(count + 1);
     }
   };
@@ -54,10 +56,13 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
   };
 
   const checkout = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get("token");
+
     const data = {
-      product_id: "1d977848-7457-4c7f-86c8-8cf558d5cf12",
-      name: name,
-      price: price,
+      product_id: id,
+      name: nama,
+      price: harga,
       quantity: count,
     };
 
@@ -65,7 +70,7 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RpbmdAdGVzdC5jb20iLCJleHAiOjE3MDU2OTI3OTcsImlkIjoiYzc0YzE0YmYtZDZhZS00NTVkLTg0MmMtNmMwMmNkNjM4MzQ5In0.FAiD7sPRwZkVCHEJaRfymzkHeGX5QaPRCkqectldObE"
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify(data)
     })
@@ -81,13 +86,13 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
       <div className="flex items-center gap-3 my-3">
         <div className="w-[20%] rounded-lg overflow-hidden aspect-square relative">
           <Image
-            src={image}
+            src={foto[0]}
             fill
             className="w-full h-full object-cover"
-            alt={name}
+            alt={nama}
           />
         </div>
-        <p className="font-dm">{name}</p>
+        <p className="font-dm">{nama}</p>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
@@ -106,7 +111,7 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
           </div>
         </div>
         <p>
-          Stok: <span className="font-semibold">{stock}</span>
+          Stok: <span className="font-semibold">{stok}</span>
         </p>
       </div>
       <div className="my-4">
@@ -140,7 +145,7 @@ const Checkout = ({ name, stock, price, image }: CheckoutProps) => {
       <div className="flex justify-between items-center">
         <p className="text-gray-500">Total</p>
         <p className="font-bold font-dm text-xl">
-          Rp{(price * count).toLocaleString()}
+          Rp{(harga * count).toLocaleString()}
         </p>
       </div>
       <button

@@ -8,19 +8,25 @@ import Image from "next/image";
 import { FaMountainSun, FaArrowsLeftRight, FaStar } from "react-icons/fa6";
 import { PiPlantBold } from "react-icons/pi";
 import { GiGrain } from "react-icons/gi";
+import { cookies } from "next/headers";
+import { RatingFarmer } from "@/types/ratingFarmer";
+import { calculateAverageRating } from "@/utils/ratingUtils";
 
-const farmerData = {
-  id: "1",
-  imageUrl: "/landing/farmer-dummy.svg",
-  name: "Syawaluddin",
-  address: "Jalan Pertanian Baru No. 123, Desa Sejahtera, Kota Dieng",
-  seeds: ["Tomato", "Cucumber", "Carrot"],
-  area: "2.5 ha",
-  type: "Highland",
-  rating: 4.5,
-};
+const Page = async ({ params, }: { params: { farmerId: string }; }) => {
+  const token = cookies()?.get("token")?.value;
 
-const Page = () => {
+  const farmers = await fetch(process.env.BACKEND_URL + "/farmers/" + params.farmerId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+  })
+
+  const result = await farmers.json();
+
+  const averageRating = calculateAverageRating(result.data.RatingFarmer);
+
   return (
     <div className="pb-20 bg-[#EEEEEE] min-h-screen">
       <div className="w-full h-40 pt-16 flex items-center relative bg-[url('/benih/bg-title.jpg')] bg-no-repeat bg-cover bg-center">
@@ -31,14 +37,14 @@ const Page = () => {
             Farmers
           </Link>
           <HiChevronRight size={22} />
-          <p className="text-green-500">Syawaludin</p>
+          <p className="text-green-500">{result.data.nama}</p>
         </div>
         <div className="inset-0 backdrop-brightness-[30%] absolute"></div>
       </div>
       <div className="container max-w-[80rem] mx-auto relative">
         <div className="w-[80%] my-9">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold font-dm">Green Field</h1>
+            <h1 className="text-3xl font-bold font-dm">{result.data.nama}</h1>
             <Image
               src={"/benih/medal.png"}
               width={25}
@@ -47,9 +53,7 @@ const Page = () => {
             />
           </div>
           <p className="text-lg text-gray-500 mt-2">
-            Greenfield Farm is a family-owned farm committed to sustainable
-            farming practices. Our mission is to provide fresh, organic produce
-            while prioritizing environmental stewardship.
+            {result.data.alamat} - {result.data.no_telp}
           </p>
           <div className="flex gap-10 my-5">
             <div className="flex flex-col gap-2 flex-1">
@@ -59,21 +63,21 @@ const Page = () => {
                   <FaArrowsLeftRight size={24} />
                   <p className="font-semibold">Area</p>
                 </div>
-                <p className="font-bold font-dm text-lg">{farmerData.area}</p>
+                <p className="font-bold font-dm text-lg">{result.data.luas_lahan} ha</p>
               </div>
               <div className="flex justify-between items-center">
                 <div className="flex gap-2 items-center text-gray-500">
                   <FaMountainSun size={24} />
                   <p className="font-semibold">Surface</p>
                 </div>
-                <p className="font-bold font-dm text-lg">{farmerData.type}</p>
+                <p className="font-bold font-dm text-lg">{result.data.jenis_sawah}</p>
               </div>
               <div className="flex justify-between items-center">
                 <div className="flex gap-2 items-center text-gray-500">
                   <FaStar size={24} />
                   <p className="font-semibold">Rating</p>
                 </div>
-                <p className="font-bold font-dm text-lg">{farmerData.rating}</p>
+                <p className="font-bold font-dm text-lg">{averageRating}</p>
               </div>
             </div>
             <div className="flex-1">
@@ -96,7 +100,7 @@ const Page = () => {
         <div className="absolute top-0 right-0 -translate-y-[55%]">
           <div className="w-40 aspect-square bg-white rounded-full border-8 border-[#EEEEEE] relative overflow-hidden">
             <Image
-              src={farmerData.imageUrl}
+              src={result.data.foto[0]}
               fill
               className="w-full h-full object-cover"
               alt="Farmer"
@@ -113,7 +117,7 @@ const Page = () => {
           <div className="absolute h-[0.3rem] rounded-t-xl bg-green-700 w-1/2 bottom-0 left-0"></div>
         </div>
         <hr className="border-[1px] text-gray-400" />
-        <ListSeed seedList={data.seeds} />
+        <ListSeed seedList={result.data.Products} farmerId={result.data.id} />
       </div>
     </div>
   );
