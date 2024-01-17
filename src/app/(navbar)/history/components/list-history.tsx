@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import HistoryCard from "./history-card";
+import { Order } from "@/types/order";
 
-const ListHistory = () => {
+const ListHistory = ({ history }: { history: Order[] }) => {
   const [query, setQuery] = useState("");
 
   return (
@@ -20,9 +21,9 @@ const ListHistory = () => {
         />
       </div>
       <div className="flex flex-col gap-5 w-full mx-auto">
-        <HistoryCard />
-        <HistoryCard />
-        <HistoryCard />
+        {history.map((item, index) => (
+          <HistoryCard key={index} order={item}/>
+        ))}
       </div>
     </>
   );

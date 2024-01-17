@@ -7,6 +7,7 @@ export interface Product {
   deskripsi: string;
   stok: number;
   harga: number;
+  berat: number;
   foto: string[];
   sold: number;
   CreatedAt: Date;

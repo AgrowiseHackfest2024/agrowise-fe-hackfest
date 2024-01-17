@@ -86,7 +86,7 @@ const Page = async ({
               </div>
             </div>
             <div className="flex-1">
-              <h1 className="font-dm text-5xl font-bold">{result.data.nama}</h1>
+              <h1 className="font-dm text-5xl font-bold">{result.data.nama} ({result.data.berat} kg)</h1>
               <div className="flex gap-2 my-2">
                 <div className="flex gap-1">
                   <Rating rating={averageRating} />
@@ -122,10 +122,12 @@ const Page = async ({
           </div>
           <Checkout
             id={result.data.id}
+            farmer_id={params.farmerId}
             nama={result.data.nama}
             stok={result.data.stok}
             harga={result.data.harga}
             foto={result.data.foto}
+            berat={result.data.berat}
           />
         </div>
       </div>

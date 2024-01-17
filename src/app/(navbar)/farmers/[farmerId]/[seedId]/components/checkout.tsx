@@ -7,9 +7,11 @@ import Cookies from "universal-cookie";
 
 interface CheckoutProps {
   id: string;
+  farmer_id: string;
   nama: string;
   stok: number;
   harga: number;
+  berat: number;
   foto: string[];
 }
 
@@ -23,7 +25,7 @@ declare global {
 
 window.snap = window.snap || {};
 
-const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
+const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutProps) => {
   useEffect(() => {
     const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
@@ -40,7 +42,7 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
     };
   });
 
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(40/berat);
   const [note, setNote] = useState("");
   const [hasNote, setHasNote] = useState(false);
   const handlePlus = () => {
@@ -50,7 +52,7 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
   };
 
   const handleMinus = () => {
-    if (count > 1) {
+    if (count > 40/berat) {
       setCount(count - 1);
     }
   };
@@ -61,9 +63,11 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
 
     const data = {
       product_id: id,
+      farmer_id: farmer_id,
       name: nama,
       price: harga,
       quantity: count,
+      production_fee: berat * count / 40 * 12000000,
     };
 
     const response = await fetch(process.env.BACKEND_URL + "/orders", {
@@ -92,7 +96,7 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
             alt={nama}
           />
         </div>
-        <p className="font-dm">{nama}</p>
+        <p className="font-dm">{nama} ({berat} kg)</p>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
@@ -149,16 +153,16 @@ const Checkout = ({ id, nama, stok, harga, foto }: CheckoutProps) => {
         </p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-gray-500">Operational Fee</p>
+        <p className="text-gray-500">Production Fee</p>
         <p className="text-lg font-semibold text-gray-500">
-          Rp{(harga * count * 0.3).toLocaleString()}
+          Rp{(berat * count / 40 * 12000000).toLocaleString()}
         </p>
       </div>
       <hr className="border-[1px] my-3" />
       <div className="flex justify-between items-center">
         <p className="text-gray-500">Total</p>
         <p className="font-bold font-dm text-xl">
-          Rp{(harga * count * 1.3).toLocaleString()}
+          Rp{((berat * count / 40 * 12000000) + (harga * count)).toLocaleString()}
         </p>
       </div>
       <button
