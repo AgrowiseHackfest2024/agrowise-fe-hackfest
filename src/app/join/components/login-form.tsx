@@ -1,7 +1,11 @@
+"use client"
 import Input from "@/components/input";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Cookies from "universal-cookie";
 
 const LoginForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -12,7 +16,31 @@ const LoginForm = () => {
       password: "",
     },
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const { email, password } = data;
+    const body = {
+      email,
+      password
+    }
+
+    const response = await fetch(process.env.BACKEND_URL + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      const cookies = new Cookies();
+      cookies.set("token", result.token, { path: "/" });
+      router.push("/");
+    } else {
+      alert(result.message);
+    }
+  };
 
   return (
     <>
@@ -32,10 +60,11 @@ const LoginForm = () => {
           label="Password"
           type="password"
         />
+
+        <button type="submit" className="w-full bg-primary py-3 text-white text-lg font-semibold rounded-lg mt-4">
+          Login
+        </button>
       </form>
-      <button className="w-full bg-primary py-3 text-white text-lg font-semibold rounded-lg mt-4">
-        Login
-      </button>
     </>
   );
 };

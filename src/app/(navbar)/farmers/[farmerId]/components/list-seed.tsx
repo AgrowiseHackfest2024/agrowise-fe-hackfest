@@ -1,13 +1,11 @@
 "use client";
 import { useState } from "react";
-import CardSeed, { CardSeedProps } from "./card-seed";
+import CardSeed from "./card-seed";
 import { IoSearch } from "react-icons/io5";
+import { Product } from "@/types/product";
 
-const ListSeed = ({ seedList }: { seedList: CardSeedProps[] }) => {
+const ListSeed = ({ seedList, farmerId }: { seedList: Product[], farmerId: string }) => {
   const [query, setQuery] = useState("");
-  const data = seedList.filter((seed) =>
-    seed.name.toLowerCase().includes(query.toLowerCase())
-  );
 
   return (
     <>
@@ -22,8 +20,8 @@ const ListSeed = ({ seedList }: { seedList: CardSeedProps[] }) => {
         />
       </div>
       <div className="flex flex-wrap gap-5 w-full mx-auto justify-between">
-        {data.map((seed) => (
-          <CardSeed key={seed.id} {...seed} />
+        {seedList.map((seed) => (
+          <CardSeed key={seed.id} {...seed} farmerId={farmerId} />
         ))}
       </div>
     </>

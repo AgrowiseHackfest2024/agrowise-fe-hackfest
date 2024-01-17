@@ -5,8 +5,10 @@ import { HiChevronRight } from "react-icons/hi";
 import { FaStar, FaStarHalf } from "react-icons/fa6";
 import Checkout from "./components/checkout";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { calculateAverageRating } from "@/utils/ratingUtils";
 
-const Page = ({
+const Page = async ({
   params,
 }: {
   params: {
@@ -15,8 +17,21 @@ const Page = ({
   };
 }) => {
   const { seedId, farmerId } = params;
-  const benih = data.seeds.find((benih) => benih.id === parseInt(seedId));
-  if (!benih) return;
+  const token = cookies()?.get("token")?.value;
+
+  const farmers = await fetch(process.env.BACKEND_URL + "/products/" + seedId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+  })
+
+  const result = await farmers.json();
+
+  if (!result.data) return;
+
+  const averageRating = calculateAverageRating(result.data.RatingProduct);
 
   const Rating = ({ rating }: { rating: number }) => {
     const stars = [];
@@ -35,6 +50,7 @@ const Page = ({
     }
     return <div className="flex gap-[0.1rem]">{stars}</div>;
   };
+  
   return (
     <div className="pb-20 min-h-screen">
       <div className="w-full h-40 pt-16 flex items-center relative justify-start px-[7%] bg-[url('/benih/bgdetail.svg')] bg-no-repeat bg-cover bg-center">
@@ -52,7 +68,7 @@ const Page = ({
             Seeds
           </Link>
           <HiChevronRight size={22} />
-          <p className="text-green-500">{benih.name}</p>
+          <p className="text-green-500">{result.data.nama}</p>
         </div>
         <div className="w-full h-full backdrop-brightness-50 absolute top-0 left-0"></div>
       </div>
@@ -62,58 +78,33 @@ const Page = ({
             <div className="w-[40%] aspect-square sticky top-20 rounded-lg overflow-hidden transition">
               <div className="w-full h-full relative">
                 <Image
-                  src={benih.image}
+                  src={result.data.foto[0]}
                   fill
                   className="w-full h-full object-cover"
-                  alt={benih.name}
+                  alt={result.data.nama}
                 />
               </div>
             </div>
             <div className="flex-1">
-              <h1 className="font-dm text-5xl font-bold">{benih.name}</h1>
+              <h1 className="font-dm text-5xl font-bold">{result.data.nama}</h1>
               <div className="flex gap-2 my-2">
                 <div className="flex gap-1">
-                  <Rating rating={benih.rating} />
-                  <p className="ml-1 font-semibold">{benih.rating}</p>
+                  <Rating rating={averageRating} />
+                  <p className="ml-1 font-semibold">{averageRating}</p>
                 </div>
                 <p className="text-lg text-gray-400">•</p>
                 <p className="font-semibold">
-                  {benih.sold}{" "}
+                  {result.data.sold}{" "}
                   <span className="font-normal text-gray-500">terjual</span>
                 </p>
               </div>
               <h2 className="text-3xl font-dm font-semibold text-green-700">
                 <span className="text-base">Rp.</span>
-                {benih.price.toLocaleString()}
+                {result.data.harga.toLocaleString()}
               </h2>
               <hr className="my-3 border-1" />
               <p className="text-base text-gray-500">
-                {benih.description}
-                <br></br>Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Sit tempora labore facere quo ex repudiandae eius dolores
-                esse. Nihil distinctio dicta maiores praesentium optio quibusdam
-                veritatis, minima iste temporibus nobis sit et architecto cum
-                officiis soluta velit! A, vero harum vitae qui maiores tenetur
-                dolor officiis quibusdam laudantium ipsum id rerum illo tempora
-                at reiciendis nihil sed alias! Eveniet dicta quidem, numquam
-                expedita debitis nesciunt necessitatibus autem ullam, adipisci,
-                quos earum optio architecto voluptate quae. Rerum, aperiam!
-                Explicabo accusamus eos voluptatem dolor, perferendis rem, autem
-                soluta quia similique id labore ad magni sapiente sequi quam
-                atque accusantium praesentium recusandae. Et velit totam
-                repellat sapiente, consectetur eveniet distinctio laudantium
-                dolorum necessitatibus quibusdam excepturi repellendus. Natus
-                tempore officia facere dolorum accusantium nesciunt! Illo
-                aliquam vero cum labore rerum neque blanditiis eveniet! Repellat
-                et veniam commodi veritatis deserunt ducimus laborum harum
-                laboriosam natus a vero dicta perspiciatis aliquid suscipit
-                debitis, officiis velit culpa esse sit ratione iure. Pariatur
-                porro eos facere ipsum, maxime velit odio nemo dolor vel neque!
-                Voluptates vero dolore eaque odio, iusto rerum quisquam quaerat
-                aliquam quia. Cumque veniam quidem, blanditiis vero sed, totam
-                corporis expedita exercitationem error placeat nostrum ratione
-                quasi nulla. Voluptas quos, doloribus dolore assumenda minus
-                aspernatur?
+                {result.data.deskripsi}
               </p>
               <hr className="my-3 border-1" />
               <p className="font-semibold">
@@ -131,7 +122,7 @@ const Page = ({
               <hr className="my-3" />
             </div>
           </div>
-          <Checkout {...benih} />
+          <Checkout id={result.data.id} nama={result.data.nama} stok={result.data.stok} harga={result.data.harga} foto={result.data.foto} />
         </div>
       </div>
     </div>
