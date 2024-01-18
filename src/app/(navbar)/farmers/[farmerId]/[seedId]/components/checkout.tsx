@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiPlus, HiMinus, HiOutlinePencil } from "react-icons/hi";
 import Cookies from "universal-cookie";
+import { useRouter } from "next/navigation";
 
 interface CheckoutProps {
   id: string;
@@ -25,7 +26,15 @@ declare global {
 
 window.snap = window.snap || {};
 
-const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutProps) => {
+const Checkout = ({
+  id,
+  farmer_id,
+  nama,
+  stok,
+  harga,
+  berat,
+  foto,
+}: CheckoutProps) => {
   useEffect(() => {
     const snap = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT as string;
@@ -42,7 +51,7 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
     };
   });
 
-  const [count, setCount] = useState(40/berat);
+  const [count, setCount] = useState(40 / berat);
   const [note, setNote] = useState("");
   const [hasNote, setHasNote] = useState(false);
   const handlePlus = () => {
@@ -50,9 +59,10 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
       setCount(count + 1);
     }
   };
+  const router = useRouter();
 
   const handleMinus = () => {
-    if (count > 40/berat) {
+    if (count > 40 / berat) {
       setCount(count - 1);
     }
   };
@@ -60,6 +70,9 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
   const checkout = async () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
+    if (!token) {
+      return router.push("/join");
+    }
 
     const data = {
       product_id: id,
@@ -67,7 +80,7 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
       name: nama,
       price: harga,
       quantity: count,
-      production_fee: berat * count / 40 * 12000000,
+      production_fee: ((berat * count) / 40) * 12000000,
     };
 
     const response = await fetch(process.env.BACKEND_URL + "/orders", {
@@ -96,7 +109,9 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
             alt={nama}
           />
         </div>
-        <p className="font-dm">{nama} ({berat} kg)</p>
+        <p className="font-dm">
+          {nama} ({berat} kg)
+        </p>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
@@ -155,14 +170,15 @@ const Checkout = ({ id, farmer_id, nama, stok, harga, berat, foto }: CheckoutPro
       <div className="flex justify-between items-center">
         <p className="text-gray-500">Production Fee</p>
         <p className="text-lg font-semibold text-gray-500">
-          Rp{(berat * count / 40 * 12000000).toLocaleString()}
+          Rp{(((berat * count) / 40) * 12000000).toLocaleString()}
         </p>
       </div>
       <hr className="border-[1px] my-3" />
       <div className="flex justify-between items-center">
         <p className="text-gray-500">Total</p>
         <p className="font-bold font-dm text-xl">
-          Rp{((berat * count / 40 * 12000000) + (harga * count)).toLocaleString()}
+          Rp
+          {(((berat * count) / 40) * 12000000 + harga * count).toLocaleString()}
         </p>
       </div>
       <button
