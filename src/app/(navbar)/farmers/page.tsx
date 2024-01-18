@@ -1,14 +1,10 @@
 import ListFarmer from "./components/list-farmer";
-import { cookies } from "next/headers";
 
 const Page = async () => {
-  const token = cookies()?.get("token")?.value;
-
   const farmers = await fetch(process.env.BACKEND_URL + "/farmers", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
     },
   })
 
