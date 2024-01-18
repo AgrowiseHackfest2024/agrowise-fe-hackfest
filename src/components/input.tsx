@@ -47,6 +47,7 @@ const Input = ({
       </label>
       {type === "password" && (
         <button
+          type="button"
           className="absolute right-4 top-1/2 -translate-y-1/2 scale-100 peer-placeholder-shown:scale-0 transition duration-300 text-gray-400"
           onClick={togglePassword}
         >

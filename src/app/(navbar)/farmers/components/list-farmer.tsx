@@ -7,6 +7,10 @@ import { Farmer } from "@/types/farmer";
 
 const ListFarmer = ({ farmers }: { farmers: Farmer[] }) => {
   const [query, setQuery] = useState("");
+
+  const filteredFarmers = farmers.filter((farmer) =>
+    farmer.nama.toLowerCase().includes(query.toLowerCase())
+  );
   
   return (
     <>
@@ -21,7 +25,7 @@ const ListFarmer = ({ farmers }: { farmers: Farmer[] }) => {
         />
       </div>
       <div className="flex flex-wrap gap-5 w-full mx-auto justify-between">
-        {farmers.map((farmer, index) => (
+        {filteredFarmers.map((farmer, index) => (
           <FarmerCard key={index} {...farmer} />
         ))}
       </div>
