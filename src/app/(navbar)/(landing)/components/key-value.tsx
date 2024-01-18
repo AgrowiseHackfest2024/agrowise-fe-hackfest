@@ -22,7 +22,7 @@ const value = [
 ];
 const KeyValue = () => {
   return (
-    <div className="bg-secondary w-full pt-56">
+    <div className="bg-secondary w-full pt-48">
       <div className="min-h-screen container mx-auto px-[5%] flex flex-col items-center justify-center">
         <h1 className="text-primary text-7xl font-bold font-dm">
           Why AgroWise?
