@@ -5,15 +5,16 @@ import getUser from "@/utils/getUser";
 const Explore = async () => {
   const user = await getUser();
 
-  if (!user || !user.data || !user.token) {
-    const farmers = await fetch(process.env.BACKEND_URL + "/farmers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+  const farmers = await fetch(process.env.BACKEND_URL + "/farmers", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
 
-    const result = await farmers.json();
+  const result = await farmers.json();
+
+  if (!user || !user.data || !user.token) {
 
     return (
       <div className="bg-[#EEEEEE] w-full">
@@ -22,7 +23,7 @@ const Explore = async () => {
             Explore Farmers
           </h1>
           <div className="flex justify-center gap-8">
-            {result.data.map((farmer: Farmer, index: number) => (
+            {result.data.slice(0, 3).map((farmer: Farmer, index: number) => (
               <FarmerCard key={index} {...farmer} />
             ))}
           </div>
@@ -40,7 +41,7 @@ const Explore = async () => {
       })
 
       const data = await response.json();
-      
+
       if (response.status === 200) {
         return data;
       }
@@ -65,8 +66,11 @@ const Explore = async () => {
         })
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        return null;
+      }
 
+      const data = await response.json();
       return data;
     };
 
@@ -82,10 +86,11 @@ const Explore = async () => {
         })
       });
 
-      console.log(user.data.user.id)
+      if (!response.ok) {
+        return null;
+      }
 
       const data = await response.json();
-      console.log(data)
       return data;
     };
 
@@ -100,7 +105,7 @@ const Explore = async () => {
           <h1 className="font-bold text-7xl font-dm text-primary mb-8">
             Explore Farmers
           </h1>
-          {farmersContentBasedData !== null && (
+          {farmersContentBasedData !== null ? (
             <div className="w-full">
               <h2 className="text-center text-2xl font-dm text-primary mb-4">
                 Because You Ordered From <span className="font-bold">{lastOrderData.data.nama}</span>
@@ -111,18 +116,36 @@ const Explore = async () => {
                 ))}
               </div>
             </div>
+          ) : (
+            <div className="w-full">
+              <div className="flex justify-center gap-8">
+                {result.data.slice(0, 3).map((farmer: Farmer, index: number) => (
+                  <FarmerCard key={index} {...farmer} />
+                ))}
+              </div>
+            </div>
           )}
 
-          <div className="w-full mt-10">
-            <h2 className="text-center text-2xl font-dm text-primary mb-4">
-              Recommendation for You
-            </h2>
-            <div className="flex justify-center gap-8">
-              {farmersCollaborativeData.data.map((farmer: Farmer, index: number) => (
-                <FarmerCard key={index} {...farmer} />
-              ))}
+          {farmersCollaborativeData !== null ? (
+            <div className="w-full mt-10">
+              <h2 className="text-center text-2xl font-dm text-primary mb-4">
+                Recommendation for You
+              </h2>
+              <div className="flex justify-center gap-8">
+                {farmersCollaborativeData.data.slice(0, 3).map((farmer: Farmer, index: number) => (
+                  <FarmerCard key={index} {...farmer} />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full mt-10">
+              <div className="flex justify-center gap-8">
+                {result.data.slice(0, 3).map((farmer: Farmer, index: number) => (
+                  <FarmerCard key={index} {...farmer} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
