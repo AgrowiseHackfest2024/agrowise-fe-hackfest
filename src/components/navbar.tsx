@@ -1,11 +1,14 @@
 "use client";
 
 import { useScrollTop } from "@/hooks/use-scroll-top";
+import fetcher from "@/utils/fetcher";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import path from "path";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import useSWR from "swr";
+import { useRouter } from "next/navigation";
+import Cookies from "universal-cookie";
 
 const navData = [
   {
@@ -17,8 +20,8 @@ const navData = [
     link: "/farmers",
   },
   {
-    name: "Seeds",
-    link: "/seeds",
+    name: "History",
+    link: "/history",
   },
   {
     name: "About",
@@ -26,9 +29,26 @@ const navData = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ token }: { token?: string }) => {
   const pathName = usePathname();
   const scrolled = useScrollTop();
+  const router = useRouter();
+
+  const {
+    data: profileData,
+    error,
+    isLoading,
+  } = useSWR([process.env.BACKEND_URL + `/profile`, token], ([url, token]) =>
+    fetcher(url, token)
+  );
+  const handleSignOut = () => {
+    const cookies = new Cookies();
+    cookies.remove("token", { path: "/" });
+    router.refresh();
+  };
+
+  console.log("INI PROFILE", profileData);
+
   return (
     <div
       className={`fixed top-0 z-50 inset-x-0 py-3 px-[7%] ${
@@ -47,7 +67,7 @@ const Navbar = () => {
           </p>
         </div>
         <ul
-          className={`flex gap-8 font-dm font-semibold text-lg ${
+          className={`flex gap-8 font-dm font-semibold items-center text-lg ${
             scrolled ? "text-black" : "text-white"
           } transition`}
         >
@@ -61,10 +81,27 @@ const Navbar = () => {
               ></div>
             </div>
           ))}
-          <div className="flex gap-2 text-white bg-green-800 px-2 items-center rounded-xl ml-4">
-            <IoPersonCircleOutline className="text-2xl" />
-            <p className="text-base">Account</p>
-          </div>
+          {profileData?.user ? (
+            <div className="flex gap-2 text-white bg-green-800 px-3 py-2 items-center rounded-xl ml-4">
+              <IoPersonCircleOutline className="text-2xl" />
+              <p className="text-base">Hi, {profileData.user.nama}</p>
+            </div>
+          ) : (
+            <Link
+              href={"/join"}
+              className={`px-3 py-2 bg-primary rounded-lg text-white`}
+            >
+              Join Us
+            </Link>
+          )}
+          {profileData?.user && (
+            <div
+              className="px-3 py-2 bg-red-500 rounded-lg text-white cursor-pointer"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </div>
+          )}
         </ul>
       </div>
     </div>

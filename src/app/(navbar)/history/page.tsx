@@ -1,9 +1,14 @@
+import { redirect } from "next/navigation";
 import HistoryCard from "./components/history-card";
 import ListHistory from "./components/list-history";
 import { cookies } from "next/headers";
 
 const Page = async () => {
   const token = cookies()?.get("token")?.value;
+
+  if (!token) {
+    redirect("/join");
+  }
 
   const orders = await fetch(process.env.BACKEND_URL + "/orders", {
     method: "GET",
@@ -24,7 +29,7 @@ const Page = async () => {
         <div className="w-full h-full backdrop-brightness-50 absolute"></div>
       </div>
       <div className="container px-[5%] max-w-[80rem] mx-auto">
-        <ListHistory history={result.data}/>
+        <ListHistory history={result.data} />
       </div>
     </div>
   );

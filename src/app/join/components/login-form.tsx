@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Input from "@/components/input";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -20,8 +20,8 @@ const LoginForm = () => {
     const { email, password } = data;
     const body = {
       email,
-      password
-    }
+      password,
+    };
 
     const response = await fetch(process.env.BACKEND_URL + "/login", {
       method: "POST",
@@ -37,6 +37,7 @@ const LoginForm = () => {
       const cookies = new Cookies();
       cookies.set("token", result.token, { path: "/" });
       router.push("/");
+      router.refresh();
     } else {
       alert(result.message);
     }
@@ -61,7 +62,10 @@ const LoginForm = () => {
           type="password"
         />
 
-        <button type="submit" className="w-full bg-primary py-3 text-white text-lg font-semibold rounded-lg mt-4">
+        <button
+          type="submit"
+          className="w-full bg-primary py-3 text-white text-lg font-semibold rounded-lg mt-4"
+        >
           Login
         </button>
       </form>
